@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b5ed7">
+  <meta name="description" content="Transporte-cr: transporte, diligencias, compras, entregas y traslados al aeropuerto en Costa Rica.">
+  <title>Transporte-cr | Transporte, diligencias y entregas</title>
+  <style>
+    :root{
+      --azul:#0b5ed7;
+      --azul-oscuro:#083b8f;
+      --celeste:#eaf3ff;
+      --verde:#16803c;
+      --texto:#172033;
+      --gris:#667085;
+      --fondo:#f7f9fc;
+      --blanco:#fff;
+      --borde:#e2e8f0;
+      --sombra:0 10px 30px rgba(16,24,40,.08);
+      --radio:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--texto);
+      background:var(--fondo);
+      line-height:1.55;
+    }
+    a{text-decoration:none;color:inherit}
+    .contenedor{width:min(1100px,92%);margin:auto}
+    header{
+      position:sticky;top:0;z-index:20;
+      background:rgba(255,255,255,.96);
+      border-bottom:1px solid var(--borde);
+      backdrop-filter:blur(8px);
+    }
+    .barra{
+      min-height:70px;display:flex;align-items:center;
+      justify-content:space-between;gap:18px;
+    }
+    .marca{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.2rem}
+    .logo{
+      width:42px;height:42px;border-radius:12px;
+      display:grid;place-items:center;
+      background:var(--azul);color:white;font-size:21px;
+      box-shadow:0 5px 15px rgba(11,94,215,.25);
+    }
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{font-weight:700;color:#344054}
+    nav a:hover{color:var(--azul)}
+    .boton{
+      display:inline-flex;align-items:center;justify-content:center;
+      border:0;border-radius:12px;padding:12px 18px;
+      font-weight:800;cursor:pointer;transition:.2s;
+    }
+    .boton-azul{background:var(--azul);color:white}
+    .boton-azul:hover{background:var(--azul-oscuro);transform:translateY(-1px)}
+    .boton-verde{background:var(--verde);color:white}
+    .boton-blanco{background:white;color:var(--azul);border:1px solid #cbd5e1}
+    .hero{
+      background:linear-gradient(135deg,#eaf3ff 0%,#fff 65%);
+      padding:70px 0 55px;
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1.15fr .85fr;gap:35px;align-items:center;
+    }
+    .etiqueta{
+      display:inline-block;background:#dceaff;color:var(--azul-oscuro);
+      padding:7px 12px;border-radius:999px;font-weight:800;font-size:.88rem;
+    }
+    h1{font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.05;margin:18px 0}
+    .hero p{font-size:1.1rem;color:#475467;max-width:650px}
+    .acciones{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+    .tarjeta-hero{
+      background:white;border:1px solid var(--borde);border-radius:26px;
+      padding:28px;box-shadow:var(--sombra);
+    }
+    .tarjeta-hero .icono{font-size:4rem}
+    .dato{display:flex;gap:12px;margin:16px 0}
+    .dato strong{display:block}
+    .dato span{color:var(--gris);font-size:.94rem}
+    section{padding:65px 0}
+    .titulo{text-align:center;margin-bottom:35px}
+    .titulo h2{font-size:2rem;margin:0 0 8px}
+    .titulo p{margin:0;color:var(--gris)}
+    .grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+    }
+    .servicio{
+      background:white;border:1px solid var(--borde);border-radius:var(--radio);
+      padding:22px;box-shadow:var(--sombra);
+    }
+    .servicio .emoji{font-size:2rem}
+    .servicio h3{margin:10px 0 6px}
+    .servicio p{color:var(--gris);margin:0 0 16px}
+    .lista{padding-left:19px;color:#475467}
+    .como{
+      background:#fff;border-top:1px solid var(--borde);border-bottom:1px solid var(--borde);
+    }
+    .pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .paso{
+      background:var(--celeste);border-radius:var(--radio);padding:24px;
+    }
+    .numero{
+      width:38px;height:38px;border-radius:50%;background:var(--azul);
+      color:#fff;display:grid;place-items:center;font-weight:900;margin-bottom:12px;
+    }
+    .formulario{
+      max-width:760px;margin:auto;background:white;padding:28px;
+      border:1px solid var(--borde);border-radius:22px;box-shadow:var(--sombra);
+    }
+    .fila{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+    label{font-weight:800;font-size:.92rem;display:block;margin-bottom:6px}
+    input,select,textarea{
+      width:100%;padding:13px 14px;border:1px solid #cbd5e1;
+      border-radius:11px;font:inherit;background:#fff;
+    }
+    textarea{min-height:120px;resize:vertical}
+    .campo{margin-bottom:16px}
+    .ayuda{color:var(--gris);font-size:.86rem;margin-top:5px}
+    .contacto{
+      background:var(--azul-oscuro);color:white;border-radius:26px;padding:40px;
+      display:grid;grid-template-columns:1fr auto;gap:25px;align-items:center;
+    }
+    .contacto p{color:#dbeafe}
+    footer{padding:28px 0;background:#101828;color:#d0d5dd;text-align:center}
+    .pequeno{font-size:.88rem;color:#98a2b3}
+    .flotante{
+      position:fixed;right:18px;bottom:18px;z-index:30;
+      border-radius:999px;padding:14px 18px;background:#25d366;color:#fff;
+      font-weight:900;box-shadow:0 10px 25px rgba(0,0,0,.18);
+    }
+    .mensaje{display:none;margin-top:15px;padding:12px;border-radius:10px;background:#ecfdf3;color:#166534;font-weight:700}
+    @media(max-width:800px){
+      nav{display:none}
+      .hero-grid,.contacto{grid-template-columns:1fr}
+      .grid,.pasos{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:560px){
+      .grid,.pasos,.fila{grid-template-columns:1fr}
+      .hero{padding:48px 0}
+      section{padding:48px 0}
+      .contacto{padding:26px}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="contenedor barra">
+    <a class="marca" href="#inicio" aria-label="Transporte-cr inicio">
+      <span class="logo">🚗</span>
+      <span>Transporte-cr</span>
+    </a>
+    <nav>
+      <a href="#servicios">Servicios</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#solicitar">Solicitar</a>
+      <a class="boton boton-azul" href="#contacto">Contactar</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="contenedor hero-grid">
+      <div>
+        <span class="etiqueta">Costa Rica · Transporte y servicios</span>
+        <h1>Tu traslado, tus diligencias y tus entregas en un solo lugar.</h1>
+        <p>
+          Transporte-cr es una plataforma pensada para facilitar traslados,
+          compras, diligencias, entregas, aeropuerto y apoyo para citas y
+          retiros de farmacia.
+        </p>
+        <div class="acciones">
+          <a class="boton boton-azul" href="#solicitar">Solicitar servicio</a>
+          <a class="boton boton-blanco" href="#servicios">Ver servicios</a>
+        </div>
+      </div>
+
+      <div class="tarjeta-hero">
+        <div class="icono">🚘📦</div>
+        <h2>Un servicio práctico</h2>
+        <div class="dato">
+          <div>📍</div>
+          <div><strong>Traslados</strong><span>Viajes locales y traslados al aeropuerto.</span></div>
+        </div>
+        <div class="dato">
+          <div>🛍️</div>
+          <div><strong>Diligencias</strong><span>Compras, mandados y encargos.</span></div>
+        </div>
+        <div class="dato">
+          <div>📦</div>
+          <div><strong>Entregas</strong><span>Recogida y entrega de paquetes.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicios">
+    <div class="contenedor">
+      <div class="titulo">
+        <h2>Nuestros servicios</h2>
+        <p>Elige el servicio que necesitas y envía tu solicitud.</p>
+      </div>
+
+      <div class="grid">
+        <article class="servicio">
+          <div class="emoji">🚗</div>
+          <h3>Traslados</h3>
+          <p>Transporte para tus recorridos y compromisos.</p>
+          <ul class="lista"><li>Viajes locales</li><li>Traslados programados</li></ul>
+        </article>
+
+        <article class="servicio">
+          <div class="emoji">✈️</div>
+          <h3>Traslados al aeropuerto</h3>
+          <p>Coordina tu salida o llegada con anticipación.</p>
+          <ul class="lista"><li>Recogida</li><li>Traslado al aeropuerto</li></ul>
+        </article>
+
+        <article class="servicio">
+          <div class="emoji">🛍️</div>
+          <h3>Compras y diligencias</h3>
+          <p>Te ayudamos con compras y mandados que necesites realizar.</p>
+          <ul class="lista"><li>Compras</li><li>Mandados y encargos</li></ul>
+        </article>
+
+        <article class="servicio">
+          <div class="emoji">📦</div>
+          <h3>Entregas</h3>
+          <p>Recogida y entrega de paquetes y artículos.</p>
+          <ul class="lista"><li>Recoger</li><li>Transportar y entregar</li></ul>
+        </article>
+
+        <article class="servicio">
+          <div class="emoji">🏥</div>
+          <h3>Citas médicas y farmacia</h3>
+          <p>Servicio para facilitar traslados y retiros relacionados con citas.</p>
+          <ul class="lista"><li>Citas médicas</li><li>Retiros de farmacia</li></ul>
+        </article>
+
+        <article class="servicio">
+          <div class="emoji">🤝</div>
+          <h3>Apoyo para adultos mayores</h3>
+          <p>Traslados y diligencias coordinadas según la necesidad.</p>
+          <ul class="lista"><li>Traslados</li><li>Diligencias</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="como-funciona" class="como">
+    <div class="contenedor">
+      <div class="titulo">
+        <h2>¿Cómo funciona?</h2>
+        <p>Solicitar un servicio es sencillo.</p>
+      </div>
+      <div class="pasos">
+        <div class="paso">
+          <div class="numero">1</div>
+          <h3>Indica lo que necesitas</h3>
+          <p>Selecciona el servicio y escribe los detalles.</p>
+        </div>
+        <div class="paso">
+          <div class="numero">2</div>
+          <h3>Coordinamos</h3>
+          <p>Revisamos tu solicitud y coordinamos los detalles del servicio.</p>
+        </div>
+        <div class="paso">
+          <div class="numero">3</div>
+          <h3>Realizamos el servicio</h3>
+          <p>Se realiza el traslado, diligencia o entrega acordada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="solicitar">
+    <div class="contenedor">
+      <div class="titulo">
+        <h2>Solicita tu servicio</h2>
+        <p>Completa los datos. El botón preparará un mensaje para WhatsApp.</p>
+      </div>
+
+      <form class="formulario" id="formSolicitud">
+        <div class="fila">
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" required placeholder="Tu nombre">
+          </div>
+          <div class="campo">
+            <label for="telefono">Teléfono</label>
+            <input id="telefono" required inputmode="tel" placeholder="Tu teléfono">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="servicio">Servicio</label>
+          <select id="servicio" required>
+            <option value="">Selecciona un servicio</option>
+            <option>Traslado</option>
+            <option>Traslado al aeropuerto</option>
+            <option>Compras y diligencias</option>
+            <option>Entrega</option>
+            <option>Cita médica y retiro de farmacia</option>
+            <option>Apoyo para adulto mayor</option>
+          </select>
+        </div>
+
+        <div class="fila">
+          <div class="campo">
+            <label for="fecha">Fecha</label>
+            <input id="fecha" type="date" required>
+          </div>
+          <div class="campo">
+            <label for="hora">Hora aproximada</label>
+            <input id="hora" type="time">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="origen">Lugar de salida / recogida</label>
+          <input id="origen" required placeholder="Dirección o punto de referencia">
+        </div>
+
+        <div class="campo">
+          <label for="destino">Destino / lugar de entrega</label>
+          <input id="destino" placeholder="Dirección o punto de referencia">
+        </div>
+
+        <div class="campo">
+          <label for="detalles">Detalles adicionales</label>
+          <textarea id="detalles" placeholder="Cuéntanos qué necesitas..."></textarea>
+        </div>
+
+        <button class="boton boton-azul" type="submit">Preparar solicitud por WhatsApp</button>
+        <div class="ayuda">
+          Antes de publicar la aplicación, debes colocar aquí el número real de WhatsApp Business de Transporte-cr.
+        </div>
+        <div class="mensaje" id="mensaje"></div>
+      </form>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="contenedor">
+      <div class="contacto">
+        <div>
+          <h2>¿Necesitas coordinar un servicio?</h2>
+          <p>Escríbenos para consultar disponibilidad, precio y detalles del servicio.</p>
+        </div>
+        <a class="boton boton-verde" href="#solicitar">Solicitar ahora</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="contenedor">
+    <strong>Transporte-cr</strong>
+    <div class="pequeno">Transporte, diligencias y entregas · Costa Rica</div>
+    <div class="pequeno">© <span id="anio"></span> Transporte-cr</div>
+  </div>
+</footer>
+
+<script>
+  // IMPORTANTE: reemplaza este número por el número de WhatsApp Business de Transporte-cr.
+  // Debe ir con código de país, sin +, espacios ni guiones.
+  const NUMERO_WHATSAPP = "REEMPLAZAR_CON_TU_NUMERO";
+
+  document.getElementById("anio").textContent = new Date().getFullYear();
+
+  const fecha = document.getElementById("fecha");
+  const hoy = new Date();
+  const yyyy = hoy.getFullYear();
+  const mm = String(hoy.getMonth() + 1).padStart(2, "0");
+  const dd = String(hoy.getDate()).padStart(2, "0");
+  fecha.min = `${yyyy}-${mm}-${dd}`;
+
+  document.getElementById("formSolicitud").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const datos = {
+      nombre: document.getElementById("nombre").value.trim(),
+      telefono: document.getElementById("telefono").value.trim(),
+      servicio: document.getElementById("servicio").value,
+      fecha: document.getElementById("fecha").value,
+      hora: document.getElementById("hora").value || "No indicada",
+      origen: document.getElementById("origen").value.trim(),
+      destino: document.getElementById("destino").value.trim() || "No indicado",
+      detalles: document.getElementById("detalles").value.trim() || "Sin detalles adicionales"
+    };
+
+    if (NUMERO_WHATSAPP === "REEMPLAZAR_CON_TU_NUMERO") {
+      const mensaje = document.getElementById("mensaje");
+      mensaje.style.display = "block";
+      mensaje.textContent = "La solicitud está lista. Falta configurar el número de WhatsApp Business de Transporte-cr.";
+      return;
+    }
+
+    const texto =
+`Hola, quiero solicitar un servicio de Transporte-cr.
+
+Nombre: ${datos.nombre}
+Teléfono: ${datos.telefono}
+Servicio: ${datos.servicio}
+Fecha: ${datos.fecha}
+Hora: ${datos.hora}
+Recogida: ${datos.origen}
+Destino/entrega: ${datos.destino}
+Detalles: ${datos.detalles}`;
+
+    const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(texto)}`;
+    window.open(url, "_blank");
+  });
+</script>
+
+</body>
+</html>
